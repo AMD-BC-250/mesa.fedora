@@ -1,0 +1,48 @@
+From 4a5f11aa4721a7d9e34665266d132f81a98db0b2 Mon Sep 17 00:00:00 2001
+From: Ivan Avdeev <1@provod.gl>
+Date: Sat, 18 Jan 2025 16:06:09 -0500
+Subject: [PATCH 2/3] radv,radeonsi: disable compute queue for BC250
+
+BC250 is known to have non-functional compute queue. Thousands
+for Vulkan CTS tests fail, and many games are known to have visual
+glitches. RADV_DEBUG=nocompute is the known workaround for all these
+issues.
+
+Disable compute queue for this chip in both radv and radeonsi.
+---
+ src/amd/common/ac_gpu_info.c           | 5 +++++
+ src/gallium/drivers/radeonsi/si_pipe.c | 2 ++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/src/amd/common/ac_gpu_info.c b/src/amd/common/ac_gpu_info.c
+index a12c10f520a..045c8e2953b 100644
+--- a/src/amd/common/ac_gpu_info.c
++++ b/src/amd/common/ac_gpu_info.c
+@@ -645,6 +645,11 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
+                                             ip_info.ib_size_alignment, 256);
+    }
+ 
++   /* GFX1013 is known to have broken compute queue */
++   if (device_info.family == FAMILY_NV && ASICREV_IS(device_info.external_rev, GFX1013)) {
++      info->ip[AMD_IP_COMPUTE].num_queues = 0;
++   }
++
+    /* Set dword padding minus 1. */
+    info->ip[AMD_IP_GFX].ib_pad_dw_mask = 0x7;
+    info->ip[AMD_IP_COMPUTE].ib_pad_dw_mask = 0x7;
+diff --git a/src/gallium/drivers/radeonsi/si_pipe.c b/src/gallium/drivers/radeonsi/si_pipe.c
+index a0055b1eed4..663545c7460 100644
+--- a/src/gallium/drivers/radeonsi/si_pipe.c
++++ b/src/gallium/drivers/radeonsi/si_pipe.c
+@@ -522,6 +522,8 @@ static struct pipe_context *si_create_context(struct pipe_screen *screen, unsign
+                         ((sscreen->info.family == CHIP_RAVEN ||
+                           sscreen->info.family == CHIP_RAVEN2) &&
+                          !sscreen->info.has_dedicated_vram) ||
++                        /* Compute queue is broken on GFX1013/AMD BC-250 */
++                        sscreen->info.family == CHIP_GFX1013 ||
+                         !(flags & PIPE_CONTEXT_COMPUTE_ONLY);
+ 
+    if (flags & PIPE_CONTEXT_DEBUG)
+-- 
+2.48.1
+

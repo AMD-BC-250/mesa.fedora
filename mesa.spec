@@ -83,6 +83,10 @@ Patch10:        gnome-shell-glthread-disable.patch
 
 Patch20:        0001-vulkan-wsi-x11-fix-use-of-uninitialised-xfixes-regio.patch
 
+Patch801:       0001-radv-add-experimental-support-for-AMD-BC-250-board.patch
+Patch802:       0002-radv-radeonsi-disable-compute-queue-for-BC250.patch
+Patch804:       0004-rusticl-enable-radeonsi-by-default.patch
+
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
