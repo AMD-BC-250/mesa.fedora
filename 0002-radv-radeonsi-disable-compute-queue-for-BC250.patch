@@ -1,4 +1,4 @@
-From 4a5f11aa4721a7d9e34665266d132f81a98db0b2 Mon Sep 17 00:00:00 2001
+From af12c588ba73105641a1e1c2f891d0875b0a4797 Mon Sep 17 00:00:00 2001
 From: Ivan Avdeev <1@provod.gl>
 Date: Sat, 18 Jan 2025 16:06:09 -0500
 Subject: [PATCH 2/3] radv,radeonsi: disable compute queue for BC250
@@ -11,8 +11,8 @@ issues.
 Disable compute queue for this chip in both radv and radeonsi.
 ---
  src/amd/common/ac_gpu_info.c           | 5 +++++
- src/gallium/drivers/radeonsi/si_pipe.c | 2 ++
- 2 files changed, 7 insertions(+)
+ src/gallium/drivers/radeonsi/si_pipe.c | 1 +
+ 2 files changed, 6 insertions(+)
 
 diff --git a/src/amd/common/ac_gpu_info.c b/src/amd/common/ac_gpu_info.c
 index a12c10f520a..045c8e2953b 100644
@@ -31,15 +31,14 @@ index a12c10f520a..045c8e2953b 100644
     info->ip[AMD_IP_GFX].ib_pad_dw_mask = 0x7;
     info->ip[AMD_IP_COMPUTE].ib_pad_dw_mask = 0x7;
 diff --git a/src/gallium/drivers/radeonsi/si_pipe.c b/src/gallium/drivers/radeonsi/si_pipe.c
-index a0055b1eed4..663545c7460 100644
+index fe8bfa869f3..c2f8f23b723 100644
 --- a/src/gallium/drivers/radeonsi/si_pipe.c
 +++ b/src/gallium/drivers/radeonsi/si_pipe.c
-@@ -522,6 +522,8 @@ static struct pipe_context *si_create_context(struct pipe_screen *screen, unsign
+@@ -522,6 +522,7 @@ static struct pipe_context *si_create_context(struct pipe_screen *screen, unsign
                          ((sscreen->info.family == CHIP_RAVEN ||
                            sscreen->info.family == CHIP_RAVEN2) &&
                           !sscreen->info.has_dedicated_vram) ||
-+                        /* Compute queue is broken on GFX1013/AMD BC-250 */
-+                        sscreen->info.family == CHIP_GFX1013 ||
++                        !sscreen->info.ip[AMD_IP_COMPUTE].num_queues ||
                          !(flags & PIPE_CONTEXT_COMPUTE_ONLY);
  
     if (flags & PIPE_CONTEXT_DEBUG)

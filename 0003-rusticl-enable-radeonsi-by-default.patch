@@ -1,7 +1,7 @@
-From 11a8c34f7f1fd34565748bf963766f4900950d8c Mon Sep 17 00:00:00 2001
+From 7c66e5e5cee8bbd0764321ec5f98ecc2c15eeb66 Mon Sep 17 00:00:00 2001
 From: Mikhail Paulyshka <me@mixaill.net>
 Date: Thu, 27 Feb 2025 01:26:36 +0300
-Subject: [PATCH 4/4] rusticl: enable radeonsi by default
+Subject: [PATCH 3/3] rusticl: enable radeonsi by default
 
 ---
  src/gallium/frontends/rusticl/mesa/pipe/device.rs | 1 +
