@@ -81,8 +81,6 @@ Source1:        Mesa-MLAA-License-Clarification-Email.txt
 
 Patch10:        gnome-shell-glthread-disable.patch
 
-Patch20:        0001-vulkan-wsi-x11-fix-use-of-uninitialised-xfixes-regio.patch
-
 Patch31:       0001-radv-add-experimental-support-for-AMD-BC-250-board.patch
 Patch32:       0002-radv-radeonsi-disable-compute-queue-for-BC250.patch
 Patch33:       0003-rusticl-enable-radeonsi-by-default.patch
