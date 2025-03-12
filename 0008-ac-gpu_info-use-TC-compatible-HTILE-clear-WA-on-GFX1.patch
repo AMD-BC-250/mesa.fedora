@@ -1,7 +1,8 @@
 From 5e18da9d4c47e2a2d21f793e8bea1b6c06af71b4 Mon Sep 17 00:00:00 2001
 From: Vitaliy Triang3l Kuzmin <triang3l@yandex.ru>
 Date: Sun, 9 Mar 2025 20:10:35 +0300
-Subject: [PATCH 8/9] ac/gpu_info: use TC-compatible HTILE clear WA on GFX1013
+Subject: [PATCH 08/13] ac/gpu_info: use TC-compatible HTILE clear WA on
+ GFX1013
 
 Signed-off-by: Vitaliy Triang3l Kuzmin <triang3l@yandex.ru>
 ---

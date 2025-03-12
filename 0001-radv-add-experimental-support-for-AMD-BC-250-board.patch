@@ -1,7 +1,7 @@
 From 95f5d207ef5c8d66db1cf8420f9fe311a481ebd9 Mon Sep 17 00:00:00 2001
 From: Ivan Avdeev <1@provod.gl>
 Date: Sun, 29 Dec 2024 22:12:13 -0500
-Subject: [PATCH 1/9] radv: add experimental support for AMD BC-250 board
+Subject: [PATCH 01/13] radv: add experimental support for AMD BC-250 board
 
 AMD BC-250 is a mining board based on an AMD APU with an integrated GPU
 that kernel recognizes as Cyan Skillfish.

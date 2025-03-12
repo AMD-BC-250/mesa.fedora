@@ -1,0 +1,32 @@
+From 0fc15d36ab867267c8d07a5e7b9fe48c0bab789a Mon Sep 17 00:00:00 2001
+From: Mikhail Paulyshka <me@mixaill.net>
+Date: Thu, 13 Mar 2025 01:57:27 +0300
+Subject: [PATCH 13/13] radv: enable invariant geom for DOOM(2016)
+
+Moving alu reordered some fmuls and since we prefer the closest fmul for ffma,
+this causes precision to mismatch between depth write and depth test.
+
+Closes: https://gitlab.freedesktop.org/mesa/mesa/-/issues/12016
+
+Cc: mesa-stable
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/33933>
+(cherry picked from commit 7b1f1a107eb1e95bd3303f453e53fcd4c98b292e)
+---
+ src/util/00-radv-defaults.conf | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/util/00-radv-defaults.conf b/src/util/00-radv-defaults.conf
+index d2dbe4d5e11..72f3438b39d 100644
+--- a/src/util/00-radv-defaults.conf
++++ b/src/util/00-radv-defaults.conf
+@@ -118,6 +118,7 @@ Application bugs worked around in this file:
+ 
+         <application name="DOOM (2016)" application_name_match="DOOM$">
+             <option name="radv_disable_dcc" value="true" />
++            <option name="radv_invariant_geom" value="true" />
+         </application>
+ 
+         <application name="Wolfenstein II" application_name_match="Wolfenstein II The New Colossus">
+-- 
+2.48.1
+

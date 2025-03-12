@@ -1,7 +1,8 @@
 From a62c1289ac2532dc662b10fd564389d31039ccec Mon Sep 17 00:00:00 2001
 From: Vitaliy Triang3l Kuzmin <triang3l@yandex.ru>
 Date: Sun, 9 Mar 2025 17:34:28 +0300
-Subject: [PATCH 5/9] ac/gpu_info: add has_tc_compat_zrange_bug_without_stencil
+Subject: [PATCH 05/13] ac/gpu_info: add
+ has_tc_compat_zrange_bug_without_stencil
 
 Signed-off-by: Vitaliy Triang3l Kuzmin <triang3l@yandex.ru>
 ---

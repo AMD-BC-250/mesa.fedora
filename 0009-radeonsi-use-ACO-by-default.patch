@@ -1,7 +1,7 @@
 From 9fc1375b4bf63e7e68f07ad5a1f1936fb33db849 Mon Sep 17 00:00:00 2001
 From: Mikhail Paulyshka <me@mixaill.net>
 Date: Thu, 13 Mar 2025 00:50:20 +0300
-Subject: [PATCH 9/9] radeonsi: use ACO by default
+Subject: [PATCH 09/13] radeonsi: use ACO by default
 
 ---
  src/gallium/drivers/radeonsi/si_pipe.c | 16 ++--------------
