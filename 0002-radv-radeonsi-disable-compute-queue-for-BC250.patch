@@ -1,7 +1,7 @@
-From af12c588ba73105641a1e1c2f891d0875b0a4797 Mon Sep 17 00:00:00 2001
+From 9b585f469583059840968270a02929e26fa19de7 Mon Sep 17 00:00:00 2001
 From: Ivan Avdeev <1@provod.gl>
 Date: Sat, 18 Jan 2025 16:06:09 -0500
-Subject: [PATCH 2/3] radv,radeonsi: disable compute queue for BC250
+Subject: [PATCH 2/9] radv,radeonsi: disable compute queue for BC250
 
 BC250 is known to have non-functional compute queue. Thousands
 for Vulkan CTS tests fail, and many games are known to have visual

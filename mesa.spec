@@ -84,6 +84,12 @@ Patch10:        gnome-shell-glthread-disable.patch
 Patch31:       0001-radv-add-experimental-support-for-AMD-BC-250-board.patch
 Patch32:       0002-radv-radeonsi-disable-compute-queue-for-BC250.patch
 Patch33:       0003-rusticl-enable-radeonsi-by-default.patch
+Patch34:       0004-ac-gpu_info-describe-the-TC-compatible-HTILE-ZRange-.patch
+Patch35:       0005-ac-gpu_info-add-has_tc_compat_zrange_bug_without_ste.patch
+Patch36:       0006-radv-handle-has_tc_compat_zrange_bug_without_stencil.patch
+Patch37:       0007-radeonsi-handle-has_tc_compat_zrange_bug_without_ste.patch
+Patch38:       0008-ac-gpu_info-use-TC-compatible-HTILE-clear-WA-on-GFX1.patch
+Patch39:       0009-radeonsi-use-ACO-by-default.patch
 
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc
