@@ -1,7 +1,7 @@
-From 863d2b2941174b181341ef8a77af9bd4b0ab703c Mon Sep 17 00:00:00 2001
+From b7dff80307117e3d7e7e636e29350f89336dacf3 Mon Sep 17 00:00:00 2001
 From: Vitaliy Triang3l Kuzmin <triang3l@yandex.ru>
 Date: Sun, 9 Mar 2025 17:41:00 +0300
-Subject: [PATCH 06/13] radv: handle has_tc_compat_zrange_bug_without_stencil
+Subject: [PATCH 6/9] radv: handle has_tc_compat_zrange_bug_without_stencil
 
 Signed-off-by: Vitaliy Triang3l Kuzmin <triang3l@yandex.ru>
 ---
@@ -38,5 +38,5 @@ index 0456c663aff..f55eff0dc8c 100644
  
  static inline bool
 -- 
-2.48.1
+2.49.0
 

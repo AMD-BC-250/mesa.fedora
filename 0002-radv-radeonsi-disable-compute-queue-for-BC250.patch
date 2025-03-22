@@ -1,7 +1,7 @@
-From 9b585f469583059840968270a02929e26fa19de7 Mon Sep 17 00:00:00 2001
+From 57801a9c69a5a2df16a7e1feb9a4be1cafd2acbc Mon Sep 17 00:00:00 2001
 From: Ivan Avdeev <1@provod.gl>
 Date: Sat, 18 Jan 2025 16:06:09 -0500
-Subject: [PATCH 02/13] radv,radeonsi: disable compute queue for BC250
+Subject: [PATCH 2/9] radv,radeonsi: disable compute queue for BC250
 
 BC250 is known to have non-functional compute queue. Thousands
 for Vulkan CTS tests fail, and many games are known to have visual
@@ -15,7 +15,7 @@ Disable compute queue for this chip in both radv and radeonsi.
  2 files changed, 6 insertions(+)
 
 diff --git a/src/amd/common/ac_gpu_info.c b/src/amd/common/ac_gpu_info.c
-index a12c10f520a..045c8e2953b 100644
+index 76ad6bf11cb..eb37bfe3346 100644
 --- a/src/amd/common/ac_gpu_info.c
 +++ b/src/amd/common/ac_gpu_info.c
 @@ -645,6 +645,11 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
@@ -43,5 +43,5 @@ index fe8bfa869f3..c2f8f23b723 100644
  
     if (flags & PIPE_CONTEXT_DEBUG)
 -- 
-2.48.1
+2.49.0
 

@@ -1,8 +1,7 @@
-From e2307cce307282961662d526af91589e2e5205f6 Mon Sep 17 00:00:00 2001
+From 47d3b56d94a445de41b8cd20393cbfe6c4497ca0 Mon Sep 17 00:00:00 2001
 From: Vitaliy Triang3l Kuzmin <triang3l@yandex.ru>
 Date: Sun, 9 Mar 2025 17:23:16 +0300
-Subject: [PATCH 04/13] ac/gpu_info: describe the TC-compatible HTILE ZRange
- bug
+Subject: [PATCH 4/9] ac/gpu_info: describe the TC-compatible HTILE ZRange bug
 
 Signed-off-by: Vitaliy Triang3l Kuzmin <triang3l@yandex.ru>
 ---
@@ -10,7 +9,7 @@ Signed-off-by: Vitaliy Triang3l Kuzmin <triang3l@yandex.ru>
  1 file changed, 19 insertions(+)
 
 diff --git a/src/amd/common/ac_gpu_info.c b/src/amd/common/ac_gpu_info.c
-index 045c8e2953b..2e72c868892 100644
+index eb37bfe3346..b4a81b8f3fb 100644
 --- a/src/amd/common/ac_gpu_info.c
 +++ b/src/amd/common/ac_gpu_info.c
 @@ -1224,6 +1224,25 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
@@ -40,5 +39,5 @@ index 045c8e2953b..2e72c868892 100644
  
     info->has_small_prim_filter_sample_loc_bug =
 -- 
-2.48.1
+2.49.0
 

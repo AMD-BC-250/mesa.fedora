@@ -1,7 +1,7 @@
-From 95f5d207ef5c8d66db1cf8420f9fe311a481ebd9 Mon Sep 17 00:00:00 2001
+From 03511112d7f0d7c31ea2f70b4377cf9acb38ab4d Mon Sep 17 00:00:00 2001
 From: Ivan Avdeev <1@provod.gl>
 Date: Sun, 29 Dec 2024 22:12:13 -0500
-Subject: [PATCH 01/13] radv: add experimental support for AMD BC-250 board
+Subject: [PATCH 1/9] radv: add experimental support for AMD BC-250 board
 
 AMD BC-250 is a mining board based on an AMD APU with an integrated GPU
 that kernel recognizes as Cyan Skillfish.
@@ -37,7 +37,7 @@ index a047a8340a5..3d5091a62df 100644
  #define AMDGPU_NAVI22_RANGE     0x32, 0x3C //# 50  <= x < 60
  #define AMDGPU_NAVI23_RANGE     0x3C, 0x46 //# 60  <= x < 70
 diff --git a/src/amd/common/ac_gpu_info.c b/src/amd/common/ac_gpu_info.c
-index 204d076d2bc..a12c10f520a 100644
+index 7a4cf4ce5c6..76ad6bf11cb 100644
 --- a/src/amd/common/ac_gpu_info.c
 +++ b/src/amd/common/ac_gpu_info.c
 @@ -804,6 +804,7 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
@@ -57,7 +57,7 @@ index 204d076d2bc..a12c10f520a 100644
  
     /* TODO: Figure out how to use LOAD_CONTEXT_REG on GFX6-GFX7. */
     info->has_load_ctx_reg_pkt =
-@@ -1339,7 +1340,7 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
+@@ -1348,7 +1349,7 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
     info->sdma_supports_sparse = info->sdma_ip_version >= SDMA_4_0;
  
     /* SDMA v5.0+ (GFX10+) supports DCC and HTILE, but Navi 10 has issues with it according to PAL. */
@@ -66,7 +66,7 @@ index 204d076d2bc..a12c10f520a 100644
  
     /* Get the number of good compute units. */
     info->num_cu = 0;
-@@ -1476,6 +1477,7 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
+@@ -1485,6 +1486,7 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
        case CHIP_RENOIR:
        case CHIP_NAVI10:
        case CHIP_NAVI12:
@@ -74,7 +74,7 @@ index 204d076d2bc..a12c10f520a 100644
        case CHIP_NAVI21:
        case CHIP_NAVI22:
        case CHIP_NAVI23:
-@@ -1725,7 +1727,9 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
+@@ -1734,7 +1736,9 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
        info->has_set_sh_pairs_packed = info->register_shadowing_required;
     }
  
@@ -86,7 +86,7 @@ index 204d076d2bc..a12c10f520a 100644
     set_custom_cu_en_mask(info);
  
 diff --git a/src/amd/common/ac_surface.c b/src/amd/common/ac_surface.c
-index 407fbbbdf1c..a3ba631ff76 100644
+index b7453a4b0c6..f453cec471a 100644
 --- a/src/amd/common/ac_surface.c
 +++ b/src/amd/common/ac_surface.c
 @@ -1769,7 +1769,7 @@ ASSERTED static bool is_dcc_supported_by_L2(const struct radeon_info *info,
@@ -132,7 +132,7 @@ index 99726f45aa9..f345d024609 100644
     CHIP_NAVI21,         /* Radeon 6800, 6900 (formerly "Sienna Cichlid") */
     CHIP_NAVI22,         /* Radeon 6700 (formerly "Navy Flounder") */
 diff --git a/src/amd/compiler/aco_instruction_selection.cpp b/src/amd/compiler/aco_instruction_selection.cpp
-index adf8bf8129a..ea5c96bccce 100644
+index 66b9cbc4f45..f135a4052cd 100644
 --- a/src/amd/compiler/aco_instruction_selection.cpp
 +++ b/src/amd/compiler/aco_instruction_selection.cpp
 @@ -5921,7 +5921,7 @@ visit_bvh64_intersect_ray_amd(isel_context* ctx, nir_intrinsic_instr* instr)
@@ -175,5 +175,5 @@ index 7f51657c0ac..46e654fbd52 100644
     gpu_info->address32_hi = gpu_info->gfx_level >= GFX9 ? 0xffff8000u : 0x0;
  
 -- 
-2.48.1
+2.49.0
 
