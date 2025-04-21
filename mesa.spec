@@ -94,6 +94,12 @@ Patch24:        0004-vulkan-wsi-handle-the-compositor-not-supporting-exte.patch
 Patch25:        0001-meson-update-wayland-protocols-source_hash.patch
 Patch26:        0001-docs-features-add-VK_EXT_hdr_metadata.patch
 
+# This patch makes Fedora CI fail and causes issues in QEMU. Revert it until
+# we find a fix.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2360851
+# https://gitlab.freedesktop.org/mesa/mesa/-/issues/13009
+Patch30:        0001-Revert-kopper-Explicitly-choose-zink.patch
+
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
