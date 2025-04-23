@@ -67,7 +67,7 @@
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-%global ver 25.0.4
+%global ver 25.1.0-rc2
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(ver)}
 Release:        %autorelease
 License:        MIT AND BSD-3-Clause AND SGI-B-2.0
@@ -80,19 +80,6 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
 
 Patch10:        gnome-shell-glthread-disable.patch
-
-# Backport of https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/33805
-# to fix clover with libclc from LLVM 20.
-Patch20:        e4eb5e80c316c0af3fff310ca89e1175d81556c1.patch
-
-# Backport of https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/32038
-# and fixes: vulkan/wsi: implement the Wayland color management protocol
-Patch21:        0001-increase-required-wayland-protocols-version-to-1.41.patch
-Patch22:        0002-vulkan-wsi-implement-the-Wayland-color-management-pr.patch
-Patch23:        0003-vulkan-wsi-implement-support-for-VK_EXT_hdr_metadata.patch
-Patch24:        0004-vulkan-wsi-handle-the-compositor-not-supporting-exte.patch
-Patch25:        0001-meson-update-wayland-protocols-source_hash.patch
-Patch26:        0001-docs-features-add-VK_EXT_hdr_metadata.patch
 
 # This patch makes Fedora CI fail and causes issues in QEMU. Revert it until
 # we find a fix.
@@ -209,6 +196,7 @@ Obsoletes:      mesa-omx-drivers < %{?epoch:%{epoch}:}%{version}-%{release}
 Summary:        Mesa libGL runtime libraries
 Requires:       libglvnd-glx%{?_isa} >= 1:1.3.2
 Requires:       %{name}-dri-drivers%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:      mesa-libOSMesa < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description libGL
 %{summary}.
@@ -220,6 +208,7 @@ Requires:       libglvnd-devel%{?_isa} >= 1:1.3.2
 Provides:       libGL-devel
 Provides:       libGL-devel%{?_isa}
 Recommends:     gl-manpages
+Obsoletes:      mesa-libOSMesa-devel < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description libGL-devel
 %{summary}.
@@ -273,21 +262,6 @@ Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{rel
 %description vdpau-drivers
 %{summary}.
 %endif
-
-%package libOSMesa
-Summary:        Mesa offscreen rendering libraries
-Provides:       libOSMesa
-Provides:       libOSMesa%{?_isa}
-
-%description libOSMesa
-%{summary}.
-
-%package libOSMesa-devel
-Summary:        Mesa offscreen rendering development package
-Requires:       %{name}-libOSMesa%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
-%description libOSMesa-devel
-%{summary}.
 
 %package libgbm
 Summary:        Mesa gbm runtime library
@@ -474,7 +448,7 @@ ln -s %{_libdir}/libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_system.so.0
 
 # this keeps breaking, check it early.  note that the exit from eu-ftr is odd.
 pushd %{buildroot}%{_libdir}
-for i in libOSMesa*.so libGL.so ; do
+for i in libGL.so ; do
     eu-findtextrel $i && exit 1
 done
 popd
@@ -501,20 +475,13 @@ popd
 %{_includedir}/EGL/eglext_angle.h
 %{_includedir}/EGL/eglmesaext.h
 
-%files libOSMesa
-%{_libdir}/libOSMesa.so.8*
-%files libOSMesa-devel
-%dir %{_includedir}/GL
-%{_includedir}/GL/osmesa.h
-%{_libdir}/libOSMesa.so
-%{_libdir}/pkgconfig/osmesa.pc
-
 %files libgbm
 %{_libdir}/libgbm.so.1
 %{_libdir}/libgbm.so.1.*
 %files libgbm-devel
 %{_libdir}/libgbm.so
 %{_includedir}/gbm.h
+%{_includedir}/gbm_backend_abi.h
 %{_libdir}/pkgconfig/gbm.pc
 
 %if 0%{?with_xa}
