@@ -446,6 +446,12 @@ rm -vf %{buildroot}%{_libdir}/libEGL_mesa.so
 # XXX can we just not build this
 rm -vf %{buildroot}%{_libdir}/libGLES*
 
+%if ! 0%{?with_asahi}
+# This symlink is unconditionally created when any kmsro driver is enabled
+# We don't want this one so delete it
+rm -vf %{buildroot}%{_libdir}/dri/apple_dri.so
+%endif
+
 # glvnd needs a default provider for indirect rendering where it cannot
 # determine the vendor
 ln -s %{_libdir}/libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_system.so.0
