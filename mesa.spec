@@ -73,7 +73,7 @@ Name:           mesa
 Summary:        Mesa graphics libraries
 %global ver 25.1.0
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(ver)}
-Release:        91
+Release:        92
 License:        MIT AND BSD-3-Clause AND SGI-B-2.0
 URL:            http://www.mesa3d.org
 
@@ -200,8 +200,8 @@ Obsoletes:      mesa-omx-drivers < %{?epoch:%{epoch}:}%{version}-%{release}
 Summary:        Mesa libGL runtime libraries
 Requires:       libglvnd-glx%{?_isa} >= 1:1.3.2
 Requires:       %{name}-dri-drivers%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       %{name}-libOSMesa = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      %{name}-libOSMesa < 25.1.0~rc2-1
-Provides:       %{name}-libOSMesa = %{version}
 
 %description libGL
 %{summary}.
@@ -213,8 +213,9 @@ Requires:       libglvnd-devel%{?_isa} >= 1:1.3.2
 Provides:       libGL-devel
 Provides:       libGL-devel%{?_isa}
 Recommends:     gl-manpages
+Provides:       %{name}-libOSMesa-devel = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      %{name}-libOSMesa-devel < 25.1.0~rc2-1
-Provides:       %{name}-libOSMesa-devel = %{version}
+
 
 %description libGL-devel
 %{summary}.
