@@ -1,0 +1,42 @@
+From 734d0a5b3815a055e3642a8eff28d5cf115916a4 Mon Sep 17 00:00:00 2001
+From: Vitaliy Triang3l Kuzmin <triang3l@yandex.ru>
+Date: Sun, 9 Mar 2025 17:41:00 +0300
+Subject: [PATCH 5/7] radv: handle has_tc_compat_zrange_bug_without_stencil
+
+Signed-off-by: Vitaliy Triang3l Kuzmin <triang3l@yandex.ru>
+---
+ src/amd/vulkan/radv_image.h | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/src/amd/vulkan/radv_image.h b/src/amd/vulkan/radv_image.h
+index c21369faede..2310c6d211d 100644
+--- a/src/amd/vulkan/radv_image.h
++++ b/src/amd/vulkan/radv_image.h
+@@ -193,16 +193,20 @@ radv_tc_compat_htile_enabled(const struct radv_image *image, unsigned level)
+ static inline bool
+ radv_image_tile_stencil_disabled(const struct radv_device *device, const struct radv_image *image)
+ {
++   if (vk_format_has_stencil(image->vk.format)) {
++      return false;
++   }
++
+    const struct radv_physical_device *pdev = radv_device_physical(device);
+ 
+-   if (pdev->info.gfx_level >= GFX9) {
+-      return !vk_format_has_stencil(image->vk.format) && !radv_image_has_vrs_htile(device, image);
+-   } else {
++   if (pdev->info.has_tc_compat_zrange_bug_without_stencil && radv_image_is_tc_compat_htile(image)) {
+       /* Due to a hw bug, TILE_STENCIL_DISABLE must be set to 0 for
+        * the TC-compat ZRANGE issue even if no stencil is used.
+        */
+-      return !vk_format_has_stencil(image->vk.format) && !radv_image_is_tc_compat_htile(image);
++      return false;
+    }
++
++   return !radv_image_has_vrs_htile(device, image);
+ }
+ 
+ static inline bool
+-- 
+2.49.0
+

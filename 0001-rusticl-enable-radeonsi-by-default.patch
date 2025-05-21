@@ -1,0 +1,24 @@
+From 6da10e91e60e3d1b6f4f9ebf40121f9d9eb3c832 Mon Sep 17 00:00:00 2001
+From: Mikhail Paulyshka <me@mixaill.net>
+Date: Thu, 27 Feb 2025 01:26:36 +0300
+Subject: [PATCH 1/7] rusticl: enable radeonsi by default
+
+---
+ src/gallium/frontends/rusticl/mesa/pipe/device.rs | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/gallium/frontends/rusticl/mesa/pipe/device.rs b/src/gallium/frontends/rusticl/mesa/pipe/device.rs
+index f5d1cb36435..016ad95a476 100644
+--- a/src/gallium/frontends/rusticl/mesa/pipe/device.rs
++++ b/src/gallium/frontends/rusticl/mesa/pipe/device.rs
+@@ -64,6 +64,7 @@ fn get_enabled_devs() -> HashMap<String, u32> {
+     let default_devs: &[&str] = &[
+         #[cfg(any(rusticl_enable_asahi, rusticl_enable_auto))]
+         "asahi",
++        "radeonsi"
+     ];
+ 
+     // I wished we could use different iterators, but that's not really working out.
+-- 
+2.49.0
+

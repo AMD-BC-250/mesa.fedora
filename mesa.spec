@@ -91,6 +91,14 @@ Patch10:        gnome-shell-glthread-disable.patch
 # https://gitlab.freedesktop.org/mesa/mesa/-/issues/13009
 Patch30:        0001-Revert-kopper-Explicitly-choose-zink.patch
 
+Patch41:        0001-rusticl-enable-radeonsi-by-default.patch
+Patch42:        0002-radeonsi-use-ACO-by-default.patch
+Patch43:        0003-ac-gpu_info-describe-the-TC-compatible-HTILE-ZRange-.patch
+Patch44:        0004-ac-gpu_info-add-has_tc_compat_zrange_bug_without_ste.patch
+Patch45:        0005-radv-handle-has_tc_compat_zrange_bug_without_stencil.patch
+Patch46:        0006-radeonsi-handle-has_tc_compat_zrange_bug_without_ste.patch
+Patch47:        0007-ac-gpu_info-use-TC-compatible-HTILE-clear-WA-on-GFX1.patch
+
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
